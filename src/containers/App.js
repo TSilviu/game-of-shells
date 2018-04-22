@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import '../styles/App.css';
+import shuffle from 'lodash/shuffle';
 
+import '../styles/App.css';
 import Board from '../components/Board';
-import { getRandomInt } from '../utils/helpers';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +13,8 @@ class App extends Component {
       buttonText: 'Play!',
       instructions: '',
       ballPosition: 0,
-      won: false
+      won: false,
+      squares: [0, 1, 2]
     }
 
     this.updateGameState = this.updateGameState.bind(this);
@@ -21,7 +22,7 @@ class App extends Component {
   }
 
   shuffle() {
-    this.setState({ballPosition: getRandomInt(0, 2)});
+    this.setState({squares: shuffle(this.state.squares)});
   }
 
   makePrediction(event) {
@@ -74,25 +75,39 @@ class App extends Component {
     
     return (
       <div className="App">
-        { gameState === '' && <Board makePrediction={this.makePrediction}/> }
+        { 
+          gameState === '' && 
+          <Board
+            squares={this.state.squares} 
+            makePrediction={this.makePrediction}/> 
+        } 
         { 
           gameState === 'showBall' && 
           <Board 
             showBall 
             ballPosition={ballPosition}
+            squares={this.state.squares}
             makePrediction={this.makePrediction}
           />
         }
-        { gameState === 'guess' 
-            && <Board ballPosition={ballPosition} makePrediction={this.makePrediction}/> }
-
-        <p>{ instructions }</p>
-        {
-          gameState !== 'guess' && 
-          <button onClick={this.updateGameState}>
-            { buttonText }
-          </button>
+        { 
+          gameState === 'guess' && 
+          <Board 
+            ballPosition={ballPosition} 
+            squares={this.state.squares}
+            makePrediction={this.makePrediction}
+          /> 
         }
+
+        <div className="interact">
+          <p>{ instructions }</p>
+          {
+            gameState !== 'guess' && 
+            <button onClick={this.updateGameState}>
+              { buttonText }
+            </button>
+          }
+        </div>
       </div>
     );
   }

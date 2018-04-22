@@ -1,31 +1,47 @@
 import React from 'react';
+import FlipMove from 'react-flip-move';
 
 import Square from './Square';
 
-function Board(props) {
+function renderSquares(props) {
   const { 
     showBall, 
     ballPosition, 
-    makePrediction 
-  } = props;  
-  
-  const squares = 
-    [0, 1, 2].map((c) => 
-      c === ballPosition ? 
-        <Square 
-          key={c} 
-          id={c}
-          hasBall
-          showBall={showBall}
-          makePrediction={makePrediction}
-        /> 
-        : 
-        <Square key={c} id={c} makePrediction={makePrediction}/>
-    );
+    makePrediction,
+    squares 
+  } = props;
 
+  return squares.map((s) => 
+      s === ballPosition ? 
+        <li key={s}>
+          <Square 
+            id={s}
+            hasBall
+            showBall={showBall}
+            makePrediction={makePrediction}
+          />
+        </li> 
+        : 
+        <li key={s}>
+          <Square
+            id={s} makePrediction={makePrediction}
+          />
+        </li>
+    );
+}
+
+function Board(props) { 
   return (
     <div>
-      { squares }
+      <FlipMove             
+       duration={750}     
+       easing="ease-out"
+        enterAnimation="accordionVertical"
+        leaveAnimation="accordionVertical"
+        typeName="ul"
+      >
+        { renderSquares(props) }
+      </FlipMove>
     </div>
   )
 }

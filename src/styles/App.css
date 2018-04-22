@@ -1,3 +1,7 @@
+ul {
+  list-style-type: none;
+}
+
 .App {
   text-align: center;
 }
@@ -9,4 +13,13 @@
   float: left;
   color: white;
   background-color: blue;
+}
+
+.interact {
+	width: 300px;
+	height: 100px;
+	top: 20%;
+	left: 250px;
+	position: absolute;
+	float: left;
 }

@@ -1,13 +1,15 @@
 import React from 'react';
 
-function Square(props) {
-  const { hasBall, showBall, id, makePrediction } = props;
+class Square extends React.Component {
+  render() {
+  	const { hasBall, showBall, id, makePrediction } = this.props;
 
-  return (
-    <div id={id} className="square" onClick={makePrediction}>
-      {hasBall && showBall && <div>Ball is here</div>}
-    </div>
-  );
+	  return (
+	    <div id={id} className="square" onClick={makePrediction}>
+	      {hasBall && showBall && <div>Ball is here</div>}
+	    </div>
+	  );
+  }
 }
 
 export default Square
