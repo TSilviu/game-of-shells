@@ -34,8 +34,8 @@ function Board(props) {
   return (
     <div>
       <FlipMove             
-       duration={750}     
-       easing="ease-out"
+        duration={750}     
+        easing="ease-out"
         enterAnimation="accordionVertical"
         leaveAnimation="accordionVertical"
         typeName="ul"
